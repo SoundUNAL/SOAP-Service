@@ -1,8 +1,9 @@
 from fastapi import APIRouter
 
-router = APIRouter()
+api_router = APIRouter()
 
-@router.get("/")
+# Principal page
+@api_router.get("/")
 async def root():
-    return {"message": "Soap Web Service",
-            "route": "/soap-service-route"}
+    return {"message": "SOAP Web Service",
+            "route": "/wssound/?wsdl"}
