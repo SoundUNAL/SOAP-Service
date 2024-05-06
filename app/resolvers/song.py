@@ -1,7 +1,7 @@
 import requests
 from server import url, apigateway_port
 
-def upload_song(albumid: int, audioid: str, lyrics: str, publication_date: str, title: str, userid: str, version: int):
+def upload_song(albumid: int, audioid: str, lyrics: str, publication_date: str, title: str, userid: str, version: int) -> bool:
     # Api gateway
     api_gateway = f"http://{url}:{apigateway_port}/graphql"
 
@@ -14,7 +14,7 @@ def upload_song(albumid: int, audioid: str, lyrics: str, publication_date: str, 
                 lyrics: "{lyrics}"
                 publicationDate: "{publication_date}"
                 title: "{title}"
-                userid: "{userid}"
+                userid: {userid}
                 version: {version}
             )
         }}
@@ -34,8 +34,8 @@ def upload_song(albumid: int, audioid: str, lyrics: str, publication_date: str, 
         if graphql_data["data"]:
             return True
 
-        # Hubo error en la cola de subida de la canción
-        print ("Error en la cola de rabbitMQ al subir la canción")
+        # Hubo error en la petición al microservicio
+        print ("Error de conexión")
         return False
 
     except requests.exceptions.RequestException as e:

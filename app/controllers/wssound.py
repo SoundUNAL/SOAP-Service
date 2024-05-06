@@ -2,6 +2,7 @@ from pydantic_xml import element
 from fastapi_soap import SoapRouter, XMLBody, SoapResponse
 from fastapi_soap.models import BodyContent
 from resolvers.song import upload_song
+from resolvers.user import check_artist
 
 # soap web service route
 soap_router = SoapRouter(name='WSSound', prefix='/wssound')
@@ -10,7 +11,7 @@ soap_router = SoapRouter(name='WSSound', prefix='/wssound')
 
 # Parametros de entrada de la operación CheckArtist
 class ArtistData(BodyContent, tag="DataArtist"):
-    userUsername: int = element(tag="Username")
+    userUsername: str = element(tag="Username")
 
 # Parametros de salida de la operación CheckArtist
 class ArtistResponse(BodyContent, tag="Response"):
@@ -42,7 +43,9 @@ class SongResponse(BodyContent, tag="Response"):
 def checkArtist_operation(body: ArtistData = XMLBody(ArtistData)):
     """ Operación para validar un artista """
     
-    result = sum(body.operands)
+    result = check_artist(
+                body.userUsername
+            )
     
     return SoapResponse(
         ArtistResponse(value=result)
