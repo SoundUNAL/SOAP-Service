@@ -1,9 +1,10 @@
 import requests
-from server import url, apigateway_port
+from server import url, urlServer, apigateway_port
 
 def upload_song(albumid: int, audioid: str, lyrics: str, publication_date: str, title: str, userid: str, version: int) -> bool:
     # Api gateway
-    api_gateway = f"http://{url}:{apigateway_port}/graphql"
+    # api_gateway = f"http://{url}:{apigateway_port}/graphql"
+    api_gateway = f"http://{urlServer}/graphql"
 
     # Mutation GraphQL con parámetros
     mutation  = f"""
