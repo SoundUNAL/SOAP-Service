@@ -1,5 +1,5 @@
 # SOAP-Service
-Servicio SOAP de SoUNd
+Servicio SOAP de SoUNd que cuenta con dos operaciones para verificar que un usuario exista, tenga rol de artista, y si es asi, suba una canción a la aplicación SoUNd.
 
 # Correr el proyecto : 
 - Crear ambiente : py -m venv .venv
